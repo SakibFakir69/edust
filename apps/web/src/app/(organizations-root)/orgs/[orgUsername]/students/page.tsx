@@ -12,11 +12,11 @@ export default function Students() {
   const activeOrgId = useAuthStore((state) => state.activeOrgId)
 
   const { data, isLoading } = studentHooks.useGetStudents(activeOrgId)
-console.log(data);
+
   return (
     <AuthGuard requiredPermissions={["org:student:*", "org:student:read"]}>
-      <title>Students</title>
       <Layout>
+        <title>Students</title>
         <Layout.Header className="flex items-center justify-between gap-4">
           <Typography variant="h1">Students</Typography>
           {activeOrgId && <AddNewUser activeOrgId={activeOrgId} />}

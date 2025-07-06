@@ -51,7 +51,9 @@ export function NavMain({
                       isActive={item.url === pathname}
                     >
                       {item.icon && <item.icon />}
-                      <span>{item.title}</span>
+                      <Link href={item.url}>
+                        <span>{item.title}</span>
+                      </Link>
                       <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
                     </SidebarMenuButton>
                   </CollapsibleTrigger>
