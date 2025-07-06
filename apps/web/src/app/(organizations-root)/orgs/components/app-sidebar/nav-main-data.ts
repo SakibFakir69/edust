@@ -8,10 +8,10 @@ import {
   LayoutDashboard,
   LucideIcon,
   Settings2,
+  SquareUserRound,
   UserRoundCog,
   Users,
 } from "lucide-react"
-
 import { FaWpforms } from "react-icons/fa"
 import { IconType } from "react-icons/lib"
 import { SiGoogleclassroom } from "react-icons/si"
@@ -44,6 +44,27 @@ export const nameMailData: {
     url: "/orgs/:orgUsername/students",
     icon: Users,
     permission: permissions.orgMenuStudents,
+    items: [
+      {
+        title: "Add Student",
+        url: "/orgs/:orgUsername/students/add",
+      },
+    ],
+  },
+  {
+    title: "Admission",
+    url: "/orgs/:orgUsername/admission",
+    icon: SquareUserRound,
+    items: [
+      {
+        title: "New Admission",
+        url: "/orgs/:orgUsername/admission/new",
+      },
+      {
+        title: "Admission List",
+        url: "/orgs/:orgUsername/admission/lists",
+      },
+    ],
   },
   {
     title: "Class & Subject",
