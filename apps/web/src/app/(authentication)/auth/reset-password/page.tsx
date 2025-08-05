@@ -1,7 +1,7 @@
 "use client"
 
 import { LogoEdust } from "@/components"
-import { useForgotPassword } from "@/hooks/react-query"
+import { useResetPassword } from "@/hooks/react-query"
 import {
   Button,
   Form,
@@ -14,44 +14,57 @@ import {
   Typography,
 } from "@edust/ui"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { CircleHelp } from "lucide-react"
+import { KeySquare } from "lucide-react"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
+import { useRouter, useSearchParams } from "next/navigation"
 import { useForm } from "react-hook-form"
 import { BarLoader } from "react-spinners"
 import { toast } from "sonner"
 import { z } from "zod"
 
-import { Layout } from "./layout"
-
 const FormSchema = z.object({
-  email: z.string().email({ message: "Invalid email address." }).min(2, {
-    message: "Email must be at least 2 characters.",
-  }),
+  newPassword: z
+    .string()
+    .min(8, { message: "Password must be at least 8 characters long" })
+    .regex(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d#@$!%*?&]{8,}$/, {
+      message:
+        "Password must contain at least one letter and one number. Special characters are allowed.",
+    }),
 })
-export const SendOtpUsingEmail = () => {
+
+export default function ResetPassword() {
+  const searchParams = useSearchParams()
+
+  const token = searchParams.get("token")
+
   const router = useRouter()
 
-  const { mutateAsync: forgotPassword, isPending: isLoading } =
-    useForgotPassword()
+  const { mutateAsync: resetPassword, isPending: isLoading } =
+    useResetPassword()
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      email: "",
+      newPassword: "",
     },
   })
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    forgotPassword(data)
+    if (!token) {
+      return toast.error("Rest password token not found!")
+    }
+
+    resetPassword({ newPassword: data.newPassword, token })
       .then((res) => {
         if (res?.status) {
           toast.success(res?.message)
-          router.push(`step=verify-otp&email=${data.email}`, { scroll: false })
+          router.push("/auth/login")
         }
       })
       .catch((error) => {
-        if (error?.data?.status) {
+        if (error.message) {
+          toast.error(error.message)
+        } else if (error?.data?.status) {
           toast.error(error?.data?.message)
         }
       })
@@ -59,34 +72,35 @@ export const SendOtpUsingEmail = () => {
 
   return (
     <>
-      {/* <Helmet>
-        <title>Forgot Password | Edust</title>
-      </Helmet> */}
-      <Layout className="flex h-screen items-center justify-center p-4">
+      <title>Sign In to Edust - Access Your Account</title>
+      <div className="bg-muted flex h-screen items-center justify-center p-4">
         <Form {...form}>
-          <div className="bg-background w-full rounded p-4 shadow sm:max-w-96 md:max-w-[450px] md:p-6">
+          <div className="bg-background w-full p-4 shadow sm:max-w-96 md:max-w-[450px] md:p-6">
             <div className="space-y-4 text-center">
               <div className="text-center">
                 <Link href={"/"}>
                   <LogoEdust className="mb-3 inline-block" width={250} />
                 </Link>{" "}
-              </div>{" "}
+              </div>
               <div className="space-y-2">
-                <Typography variant="h3">Forgot Password?</Typography>
-                <CircleHelp className="mx-auto h-28 w-28" />
+                <Typography variant="h3">Change Your Password</Typography>
+                <Typography>
+                  Enter your new password below to change your password
+                </Typography>
+                <KeySquare className="mx-auto mb-4 h-28 w-28" />
               </div>
             </div>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
               <FormField
                 control={form.control}
-                name="email"
+                name="newPassword"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Enter Your Email Account</FormLabel>
+                    <FormLabel>Enter your new password</FormLabel>
                     <FormControl>
                       <Input
-                        type="email"
-                        placeholder="example@gmail.com"
+                        type="password"
+                        placeholder="********"
                         {...field}
                       />
                     </FormControl>
@@ -107,7 +121,7 @@ export const SendOtpUsingEmail = () => {
             </form>
           </div>
         </Form>
-      </Layout>
+      </div>
     </>
   )
 }

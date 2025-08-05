@@ -45,11 +45,6 @@ export const useForgotPassword = () =>
     mutationFn: api.v0.forgotPassword,
   })
 
-export const useCheckOtp = () =>
-  useMutation({
-    mutationFn: api.v0.checkOtp,
-  })
-
 export const useResetPassword = () =>
   useMutation({
     mutationFn: api.v0.resetPassword,

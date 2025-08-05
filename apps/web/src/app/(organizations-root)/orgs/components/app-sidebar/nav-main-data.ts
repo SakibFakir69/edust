@@ -45,6 +45,10 @@ export const nameMailData: {
     permission: PERMISSIONS.ORG_STUDENT_FULL_ACCESS,
     items: [
       {
+        title: "Student Lists",
+        url: "/orgs/:orgUsername/students",
+      },
+      {
         title: "Add Student",
         url: "/orgs/:orgUsername/students/add",
       },
