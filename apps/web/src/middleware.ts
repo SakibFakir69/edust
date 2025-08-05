@@ -36,7 +36,8 @@ export const config = {
     "/academics/:path*",
     "/dashboard/:path*",
     "/orgs",
-    "/orgs/((?!create|profile).*)",
+    // ignore authorization for orgs/* some routes
+    "/orgs/((?!create|admissions|profile).*)",
     "/student/:path*",
   ],
 }

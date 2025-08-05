@@ -1,5 +1,3 @@
-"use client"
-
 import { Typography } from "@edust/ui"
 
 export default function News() {

@@ -1,7 +1,6 @@
 "use client"
 
-import { permissions } from "@/lib/pm"
-import { PermissionValues } from "@edust/types"
+import { PERMISSIONS, Permissions } from "@/constant"
 import {
   Earth,
   House,
@@ -21,12 +20,12 @@ export const nameMailData: {
   url: string
   icon?: LucideIcon | IconType
   isActive?: boolean
-  permission?: PermissionValues
+  permission?: Permissions
   items?: {
     title: string
     url: string
     isActive?: boolean
-    permission?: PermissionValues
+    permission?: Permissions
   }[]
 }[] = [
   {
@@ -43,7 +42,7 @@ export const nameMailData: {
     title: "Students",
     url: "/orgs/:orgUsername/students",
     icon: Users,
-    permission: permissions.orgMenuStudents,
+    permission: PERMISSIONS.ORG_STUDENT_FULL_ACCESS,
     items: [
       {
         title: "Add Student",
@@ -55,16 +54,6 @@ export const nameMailData: {
     title: "Admission",
     url: "/orgs/:orgUsername/admission",
     icon: SquareUserRound,
-    items: [
-      {
-        title: "New Admission",
-        url: "/orgs/:orgUsername/admission/new",
-      },
-      {
-        title: "Admission List",
-        url: "/orgs/:orgUsername/admission/lists",
-      },
-    ],
   },
   {
     title: "Class & Subject",
@@ -85,29 +74,33 @@ export const nameMailData: {
       },
     ],
   },
-  {
-    title: "Quizzes",
-    url: "/orgs/:orgUsername/quizzes",
-    icon: FaWpforms,
-    // permission: permissions.
-  },
+  // {
+  //   title: "Quizzes",
+  //   url: "/orgs/:orgUsername/quizzes",
+  //   icon: FaWpforms,
+  //   // permission: permissions.
+  // },
   {
     title: "Access Control",
     url: "/orgs/:orgUsername/access-control",
     icon: UserRoundCog,
-    permission: permissions.orgMenuAccessControl,
+    permission: PERMISSIONS.ORG_MENU_ACCESS_CONTROL,
   },
   {
     title: "Site",
     url: "/orgs/:orgUsername/site",
     icon: Earth,
-    permission: permissions.orgMenuSite,
+    permission: PERMISSIONS.ORG_PREFIX,
   },
   {
     title: "Settings",
     url: "/orgs/:orgUsername/settings",
     icon: Settings2,
     items: [
+      {
+        title: "General",
+        url: "/orgs/:orgUsername/settings",
+      },
       {
         title: "Profile",
         url: "/orgs/:orgUsername/settings/profile",

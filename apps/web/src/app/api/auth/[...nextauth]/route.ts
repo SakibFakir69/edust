@@ -40,8 +40,7 @@ export const authOptions: NextAuthOptions = {
           }
           return user
         } catch (error) {
-          console.error("Login failed:", error)
-          return null
+          throw new Error((error as Error)?.message || "Login failed")
         }
       },
     }),
@@ -78,8 +77,7 @@ export const authOptions: NextAuthOptions = {
           }
           return user
         } catch (error) {
-          console.error("SOCIAL_LOGIN failed:", error)
-          return null
+          throw new Error((error as Error)?.message || "Login failed")
         }
       },
     }),

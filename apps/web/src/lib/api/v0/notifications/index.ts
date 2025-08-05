@@ -1,9 +1,9 @@
 import { defaultValues } from "@/configs"
 import axios from "@/lib/axios"
 
-const BASE_URL = `${defaultValues.apiV0URL}/notifications`
+const BASE_URL = `${defaultValues.apiV0URL}/notifications/me`
 
-export const getUserNotifications = async (query?: {
+export const getMeNotifications = async (query?: {
   filter?: { status?: string }
   limit?: string
 }): Promise<any> => {
@@ -16,7 +16,7 @@ export interface EditReadPayload {
   markAllAsRead?: boolean
 }
 
-export const editUserNotificationsAsRead = async (
+export const editMeNotificationsAsRead = async (
   payload: EditReadPayload,
 ): Promise<any> => {
   const response = await axios.patch(`${BASE_URL}/read`, payload)

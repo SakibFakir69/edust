@@ -119,7 +119,7 @@ export default function Profile() {
   useEffect(() => {
     // TODO: Need to refetch system
     const getProfileMe = async () => {
-      const data = await axios.get(`/api/v0/profile/me`)
+      const data = await axios.get(`/api/v0/profiles/me`)
       const userData = data?.data?.data
 
       setProfileData(userData)
@@ -196,7 +196,7 @@ export default function Profile() {
 
       // Update the profile here
       try {
-        const response = await axios.patch(`/api/v0/profile/me`, formData, {
+        const response = await axios.patch(`/api/v0/profiles/me`, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },

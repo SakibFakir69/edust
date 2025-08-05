@@ -3,13 +3,13 @@
 import { ComingSoon, Layout } from "@/components"
 import { Typography } from "@edust/ui"
 
-export default function NewAdmission() {
+export default function Add() {
   return (
     <>
       <Layout>
-        <title>New Admission </title>
+        <title>Add Student</title>
         <Layout.Header>
-          <Typography variant="h1">New Admission </Typography>
+          <Typography variant="h1">Add Student</Typography>
         </Layout.Header>
 
         <Layout.Body>

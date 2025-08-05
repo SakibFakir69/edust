@@ -6,8 +6,8 @@ export const useGetUserNotifications = (query?: {
   limit?: string
 }) => {
   return useQuery({
-    queryKey: ["user-notifications", query],
-    queryFn: () => api.v0.getUserNotifications(query),
+    queryKey: ["me-notifications", query],
+    queryFn: () => api.v0.getMeNotifications(query),
   })
 }
 
@@ -21,9 +21,9 @@ export const useEditNotificationsAsRead = () => {
 
   return useMutation({
     mutationFn: (payload: EditReadPayload) =>
-      api.v0.editUserNotificationsAsRead(payload),
+      api.v0.editMeNotificationsAsRead(payload),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["user-notifications"] })
+      queryClient.invalidateQueries({ queryKey: ["me-notifications"] })
     },
   })
 }

@@ -10,7 +10,7 @@ export default async function ProfileByUsername({
   const username = (await params).username
 
   const response = await fetch(
-    `${defaultValues.backendURL}/api/v0/public/profile/username-${username}`,
+    `${defaultValues.backendURL}/api/v0/public/profiles/username/${username}`,
   )
   const user = await response.json()
 
