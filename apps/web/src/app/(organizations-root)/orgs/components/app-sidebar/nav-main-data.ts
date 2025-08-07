@@ -2,6 +2,7 @@
 
 import { PERMISSIONS, Permissions } from "@/constant"
 import {
+  CalendarCog,
   Earth,
   House,
   LayoutDashboard,
@@ -84,6 +85,12 @@ export const nameMailData: {
   //   icon: FaWpforms,
   //   // permission: permissions.
   // },
+  {
+    title: "Academic Years",
+    url: "/orgs/:orgUsername/academic-years",
+    icon: CalendarCog,
+    permission: PERMISSIONS.ORG_ACADEMIC_YEAR_FULL_ACCESS,
+  },
   {
     title: "Access Control",
     url: "/orgs/:orgUsername/access-control",
