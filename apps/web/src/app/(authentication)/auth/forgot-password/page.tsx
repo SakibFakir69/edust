@@ -1,26 +1,126 @@
 "use client"
 
-import { useSearchParams } from "next/navigation"
+import { LogoEdust } from "@/components"
+import { useForgotPassword } from "@/hooks/react-query"
+import {
+  Button,
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+  Input,
+  Typography,
+} from "@edust/ui"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { CircleHelp } from "lucide-react"
+import Link from "next/link"
+import { useForm } from "react-hook-form"
+import { BarLoader } from "react-spinners"
+import { toast } from "sonner"
+import { z } from "zod"
 
-import { ResetWithNewPassword } from "../../components/reset-with-new-password"
-import { SendOtpUsingEmail } from "../../components/send-otp-using-email"
-import { VerifyOtp } from "../../components/verify-otp"
+import { useState } from "react"
+
+import { Layout } from "../../components/layout"
+
+const FormSchema = z.object({
+  email: z.string().email({ message: "Invalid email address." }).min(2, {
+    message: "Email must be at least 2 characters.",
+  }),
+})
 
 export default function ForgotPassword() {
-  const searchParams = useSearchParams()
-  const step = searchParams.get("step")
+  const [isResetRequestSent, setIsResetRequestSent] = useState(false)
 
-  switch (step) {
-    // Step 2
-    case "verify-otp":
-      return <VerifyOtp />
+  const { mutateAsync: forgotPassword, isPending: isLoading } =
+    useForgotPassword()
 
-    // Step 3
-    case "reset-password":
-      return <ResetWithNewPassword />
+  const form = useForm<z.infer<typeof FormSchema>>({
+    resolver: zodResolver(FormSchema),
+    defaultValues: {
+      email: "",
+    },
+  })
 
-    // Step 1
-    default:
-      return <SendOtpUsingEmail />
+  function onSubmit(data: z.infer<typeof FormSchema>) {
+    forgotPassword(data)
+      .then((res) => {
+        if (res?.status) {
+          setIsResetRequestSent(true)
+          toast.success(res?.message)
+        }
+      })
+      .catch((error) => {
+        if (error?.data?.status) {
+          toast.error(error?.data?.message)
+        }
+      })
   }
+
+  return (
+    <>
+      <title>Forgot Password | Edust</title>
+      <Layout className="flex h-screen items-center justify-center p-4">
+        <Form {...form}>
+          <div className="bg-background w-full rounded p-4 shadow sm:max-w-96 md:max-w-[450px] md:p-6">
+            <div className="space-y-4 text-center">
+              <div className="text-center">
+                <Link href={"/"}>
+                  <LogoEdust className="mb-3 inline-block" width={250} />
+                </Link>{" "}
+              </div>{" "}
+              <div className="space-y-2">
+                <Typography variant="h3">Forgot Password?</Typography>
+                <CircleHelp className="mx-auto h-28 w-28" />
+              </div>
+            </div>
+            {isResetRequestSent ? (
+              <div className="text-center">
+                <Typography variant="h3">Check your email</Typography>
+                <Typography>
+                  We’ve sent you a link to reset your password.{" "}
+                  <b>Please check your inbox.</b>
+                </Typography>
+              </div>
+            ) : (
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="space-y-4"
+              >
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Enter Your Email Account</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="email"
+                          placeholder="example@gmail.com"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <div className="flex items-center justify-end gap-4">
+                  <Link href={"/auth/login"}>
+                    <Button type="button" variant={"outline"}>
+                      Cancel
+                    </Button>
+                  </Link>
+                  <Button type="submit" className="" disabled={isLoading}>
+                    {isLoading ? <BarLoader color="#fff" /> : "Reset Password"}
+                  </Button>
+                </div>
+              </form>
+            )}
+          </div>
+        </Form>
+      </Layout>
+    </>
+  )
 }

@@ -49,12 +49,12 @@ export const useAuthStore = create<AuthState>((set, get) => ({
   setAuthMe: (user) => {
     if (!user) {
       set({ user: null, activeOrgId: null, activeProfileOrgId: null })
-      get().disconnectSocket()
+      // get().disconnectSocket()
       return
     }
 
     set({ user })
-    get().connectSocket()
+    // get().connectSocket()
   },
 
   // get organization
@@ -75,7 +75,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     const org = user.organizations.find((o) => o.orgUsername === orgUsername)
     if (org) {
       set({ activeOrgId: org.id })
-      get().connectSocket()
+      // get().connectSocket()
     }
   },
 
@@ -146,8 +146,8 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     cookies.forEach(([key]) => deleteCookie(key))
 
     set({ user: null, activeOrgId: null, activeProfileOrgId: null })
-    get().disconnectSocket()
-    get().clearOnlineUsers()
+    // get().disconnectSocket()
+    // get().clearOnlineUsers()
   },
 
   // Clear online users from state

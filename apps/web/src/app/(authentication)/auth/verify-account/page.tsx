@@ -1,16 +1,17 @@
 "use client"
 
-// import assets from "@/assets/images"
 import { useVerifyEmailByToken } from "@/hooks/react-query"
 import { Typography } from "@edust/ui"
-import { useParams, useRouter } from "next/navigation"
+import { useRouter, useSearchParams } from "next/navigation"
 import { BeatLoader } from "react-spinners"
 import { toast } from "sonner"
 
-import React, { useEffect } from "react"
+import { useEffect } from "react"
 
 export default function VerifyAccount() {
-  const params = useParams()
+  const searchParams = useSearchParams()
+
+  const token = searchParams.get("token")
 
   const {
     mutateAsync: verify,
@@ -21,8 +22,8 @@ export default function VerifyAccount() {
   const router = useRouter()
 
   useEffect(() => {
-    if (params.resetToken) {
-      verify(params.resetToken as string)
+    if (token) {
+      verify(token)
         .then((res) => {
           if (res?.status) {
             toast.success(res?.message)
@@ -36,7 +37,7 @@ export default function VerifyAccount() {
           }
         })
     }
-  }, [router, params.resetToken, verify])
+  }, [router, token, verify])
 
   return (
     <div className="flex h-screen items-center justify-center p-4">
@@ -47,7 +48,7 @@ export default function VerifyAccount() {
             <Typography variant="h3">Verifying Your Account</Typography>
             {isLoading && <BeatLoader />}
           </div>
-          {!isError && <Typography>Working for verification</Typography>}
+          {!isError && <Typography>Working for verification...</Typography>}
           {isError && (
             <Typography className="text-red-500">
               Close this tab and Please Try again!

@@ -20,21 +20,21 @@ export const register = async (body: any): Promise<any> => {
 }
 
 export const verifyEmailByToken = async (token: string): Promise<any> => {
-  const response = await axios.post(`${BASE_URL}/verify-account/${token}`)
+  const response = await axios.post(`${BASE_URL}/verify-account`, {
+    verificationToken: token,
+  })
   return response.data
 }
 
-export const forgotPassword = async (body: any): Promise<any> => {
-  const response = await axios.post(`${BASE_URL}/forgot-password`, body)
+export const forgotPassword = async (body: { email: string }): Promise<any> => {
+  const response = await axios.post(`${BASE_URL}/password-reset/request`, body)
   return response.data
 }
 
-export const checkOtp = async (body: any): Promise<any> => {
-  const response = await axios.post(`${BASE_URL}/check-otp`, body)
-  return response.data
-}
-
-export const resetPassword = async (body: any): Promise<any> => {
-  const response = await axios.post(`${BASE_URL}/reset-password`, body)
+export const resetPassword = async (body: {
+  token: string
+  newPassword: string
+}): Promise<any> => {
+  const response = await axios.post(`${BASE_URL}/password-reset/reset`, body)
   return response.data
 }

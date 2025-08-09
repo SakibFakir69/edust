@@ -31,11 +31,11 @@ export const Guest = () => {
                   Home
                 </Link>
               </NavigationMenuLink>
-              <NavigationMenuLink asChild>
+              {/* <NavigationMenuLink asChild>
                 <Link href="/institutes" className="p-2 text-sm font-medium">
                   Institutes
                 </Link>
-              </NavigationMenuLink>
+              </NavigationMenuLink> */}
               <NavigationMenuLink asChild>
                 <Link href="/about-us" className="p-2 text-sm font-medium">
                   About

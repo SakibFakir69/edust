@@ -11,9 +11,9 @@ interface ComingSoonProps {
 export const ComingSoon = ({ className }: ComingSoonProps) => {
   const router = useRouter()
   return (
-    <div className={`h-svh ${className}`}>
+    <div className={`h-[calc(100svh-100px)] ${className}`}>
       <div className="m-auto flex h-full w-full flex-col items-center justify-center gap-2">
-        <TbPlanet size={72} />
+        <TbPlanet size={72} className="animate-bounce" />
         <Typography
           className="text-4xl font-bold leading-tight"
           affects="removePaddingMargin"

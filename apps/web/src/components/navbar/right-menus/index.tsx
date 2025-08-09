@@ -81,12 +81,12 @@ export const RightMenus = () => {
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
-            <Link href={"/dashboard"}>
+            {/* <Link href={"/dashboard"}>
               <DropdownMenuItem>
                 <LayoutDashboard className="mr-2 h-4 w-4" />
                 <span>Dashboard</span>
               </DropdownMenuItem>
-            </Link>
+            </Link> */}
             <Link href={"/settings"}>
               <DropdownMenuItem>
                 <Settings className="mr-2 h-4 w-4" />
@@ -95,7 +95,7 @@ export const RightMenus = () => {
             </Link>
           </DropdownMenuGroup>
 
-          <DropdownMenuGroup>
+          {/* <DropdownMenuGroup>
             <DropdownMenuSub>
               <DropdownMenuSubTrigger>
                 <CircleHelp className="mr-2 h-4 w-4" /> Help & support
@@ -111,7 +111,7 @@ export const RightMenus = () => {
                 </DropdownMenuSubContent>
               </DropdownMenuPortal>
             </DropdownMenuSub>
-          </DropdownMenuGroup>
+          </DropdownMenuGroup> */}
 
           <>
             {state.user?.profiles ? (

@@ -1,8 +1,8 @@
 "use client"
 
+import { Permissions } from "@/constant"
 import { useOrgSocketEvents, useSocketEvents } from "@/hooks"
 import { useAuthMe } from "@/hooks/react-query"
-import { PermissionValues } from "@/lib/pm"
 import { useAuthStore } from "@/store"
 import { AxiosError } from "axios"
 import { useSession } from "next-auth/react"
@@ -17,7 +17,7 @@ type Organization = {
   profilePic: string | null
   roleId: string
   role: string
-  rolePermissions: PermissionValues[]
+  rolePermissions: Permissions[]
 }
 
 export interface AuthMeData {

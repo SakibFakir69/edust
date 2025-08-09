@@ -1,7 +1,7 @@
 "use client"
 
 import { Loading } from "@/components/loading"
-import { PermissionValues } from "@/lib/pm"
+import { Permissions } from "@/constant"
 import { useAuthStore } from "@/store"
 import { Typography } from "@edust/ui"
 import { useSession } from "next-auth/react"
@@ -12,7 +12,7 @@ import { useGetAuthMe } from "./use-get-auth-me"
 
 export type AuthGuardProps = {
   children: React.ReactNode
-  requiredPermissions?: PermissionValues | PermissionValues[]
+  requiredPermissions?: Permissions | Permissions[]
   fallback?: React.ReactNode
 }
 

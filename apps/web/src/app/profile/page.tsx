@@ -12,7 +12,7 @@ export default async function Profile({
   const userId = (await searchParams).id
 
   const response = await fetch(
-    `${defaultValues.backendURL}/api/v0/public/profile/userId-${userId}`,
+    `${defaultValues.backendURL}/api/v0/public/profiles/${userId}`,
   )
   const user: ProfileResponse = await response.json()
 

@@ -1,0 +1,27 @@
+{
+  "name": "@edust/rich-text-editor",
+  "version": "0.0.0",
+  "type": "module",
+  "private": "true",
+  "scripts": {
+    "lint": "eslint . --max-warnings 0"
+  },
+  "dependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-image-crop": "^11.0.10",
+    "reactjs-tiptap-editor": "^0.3.18"
+  },
+  "devDependencies": {
+    "@edust/eslint-config": "workspace:*",
+    "@edust/types": "workspace:*",
+    "@edust/typescript-config": "workspace:*",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "typescript": "^5.9.2"
+  },
+  "exports": {
+    ".": "./src/index.ts"
+  }
+}
