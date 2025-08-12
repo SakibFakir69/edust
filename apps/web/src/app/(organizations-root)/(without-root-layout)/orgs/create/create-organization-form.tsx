@@ -1,7 +1,6 @@
 "use client"
 
 import { useGetOrgLists, usePostOrganization } from "@/hooks/react-query"
-import { convertSlug } from "@/utils"
 import { OrganizationRoles } from "@edust/types"
 import { Checkbox } from "@edust/ui"
 import {
@@ -14,6 +13,7 @@ import {
   FormMessage,
   Input,
 } from "@edust/ui"
+import { convertSlug } from "@edust/utils"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useSession } from "next-auth/react"
 import { useRouter } from "next/navigation"

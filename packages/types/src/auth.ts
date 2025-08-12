@@ -1,4 +1,4 @@
-import type { Organization, Roles, User } from "@edust/types"
+import type { Organization, Permissions, Roles, User } from "@edust/types"
 
 export type Academics = Pick<
   Organization,
@@ -6,7 +6,10 @@ export type Academics = Pick<
 > & { studentId: string; orgId: string }
 
 export type AuthMe = User & {
-  systemRole: null
+  systemRole: null | {
+    roles: ["ADMINISTRATOR"]
+    permissions: Permissions
+  }
   organizations: null | Array<Organization>
   academics: null | Array<Academics>
   profiles: null | Array<{

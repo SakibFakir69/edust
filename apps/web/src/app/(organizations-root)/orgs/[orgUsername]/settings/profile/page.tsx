@@ -2,8 +2,6 @@
 
 import { ImageUploadField, imageUploadFieldZod } from "@/components"
 import axios from "@/lib/axios"
-import { asOptionalField } from "@/utils"
-import { Roles } from "@edust/types"
 import {
   Button,
   Card,
@@ -17,6 +15,7 @@ import {
   FormMessage,
   Input,
 } from "@edust/ui"
+import { zodAsOptionalField } from "@edust/utils"
 import { zodResolver } from "@hookform/resolvers/zod"
 import imageCompression from "browser-image-compression"
 import { useSession } from "next-auth/react"
@@ -70,7 +69,7 @@ const FormSchema = z
       .refine((value) => /^[a-z-]*$/.test(value), {
         message: "Username must only contain English letters and hyphens",
       }),
-    email: asOptionalField(
+    email: zodAsOptionalField(
       z
         .string()
         .trim()
@@ -78,11 +77,11 @@ const FormSchema = z
         .email({ message: "Invalid email format" }),
     ),
 
-    location: asOptionalField(
+    location: zodAsOptionalField(
       z.string().trim().min(10, "Location must be at least 10 characters long"),
     ),
 
-    profilePic: asOptionalField(imageUploadFieldZod),
+    profilePic: zodAsOptionalField(imageUploadFieldZod),
   })
   .transform((data) => {
     // Remove any undefined properties from the object

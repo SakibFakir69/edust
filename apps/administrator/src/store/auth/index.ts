@@ -5,8 +5,6 @@ import { deleteCookie, getCookies } from "cookies-next"
 import { Socket } from "socket.io-client"
 import { create } from "zustand"
 
-const ACTIVE_ORG_COOKIE = "activeOrgId"
-
 interface AuthState {
   user: null | AuthMe
   socket: Socket | null
@@ -35,7 +33,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     set({
       user,
     })
-    get().connectSocket()
+    // get().connectSocket()
   },
 
   logOut: () => {
@@ -43,11 +41,9 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     const cookies = Object.entries(getCookies() || {})
     cookies.forEach(([key]) => deleteCookie(key))
 
-    deleteCookie(ACTIVE_ORG_COOKIE)
-
     set({ user: null })
-    get().disconnectSocket()
-    get().clearOnlineUsers()
+    // get().disconnectSocket()
+    // get().clearOnlineUsers()
   },
 
   clearOnlineUsers: () => set({ onlineUsers: new Set() }),

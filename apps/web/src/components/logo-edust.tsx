@@ -1,7 +1,7 @@
 "use client"
 
 import { useThemeStore } from "@/store"
-import { detectTheme } from "@/utils"
+import { detectTheme } from "@edust/utils"
 
 interface LogoEdustProps {
   iconMode?: boolean

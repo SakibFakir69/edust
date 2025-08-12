@@ -1,4 +1,4 @@
-import type { PermissionValues, Roles } from "@edust/types"
+import type { Permissions, Roles } from "@edust/types"
 
 export type Organization = {
   id: string
@@ -7,5 +7,5 @@ export type Organization = {
   profilePic: string | null
   roleId: string
   role: Roles.owner | string
-  rolePermissions: PermissionValues[]
+  rolePermissions: Permissions[]
 }

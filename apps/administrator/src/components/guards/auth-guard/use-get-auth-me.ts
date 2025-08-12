@@ -1,6 +1,6 @@
 "use client"
 
-import { useSocketEvents } from "@/hooks"
+// import { useSocketEvents } from "@/hooks"
 import { useAuthMe } from "@/hooks/react-query"
 import { useAuthStore } from "@/store"
 import { AxiosError } from "axios"
@@ -39,7 +39,7 @@ export function useGetAuthMe() {
     }
   }, [isError, error, setAuthMe, router, logOut])
 
-  useSocketEvents()
+  // useSocketEvents()
 
   return {
     data: data?.data || null,

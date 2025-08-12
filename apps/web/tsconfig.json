@@ -12,9 +12,10 @@
     "incremental": true,
     "paths": {
       "@/*": ["./src/*"],
-      "@edust/ui/*": ["../../packages/ui/src/*"],
+      "@edust/ui": ["../../packages/ui/src"], // for ignore index.ts auto import time
+      "@edust/ui/*": ["../../packages/ui/src/*"], // for import all related packages
       "@edust/types": ["../../packages/types/src/index.ts"],
-      "@edust/types/*": ["../../packages/types/src/*"]
+      "@edust/utils": ["../../packages/utils/src/index.ts"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

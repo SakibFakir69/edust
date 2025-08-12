@@ -1,8 +1,6 @@
 "use client"
 
 import { defaultValues } from "@/configs"
-import { PermissionValues, permissions } from "@/lib/pm"
-import { authService } from "@/services"
 import { useAuthStore } from "@/store"
 import {
   Sidebar,
@@ -14,103 +12,27 @@ import {
   SidebarMenuItem,
   SidebarRail,
 } from "@edust/ui"
-import {
-  AudioWaveform,
-  BadgeHelp,
-  BotMessageSquare,
-  Building2,
-  Command,
-  Earth,
-  Frame,
-  GalleryVerticalEnd,
-  House,
-  LayoutDashboard,
-  LucideIcon,
-  Map,
-  MessageSquareX,
-  PieChart,
-  School,
-  Settings2,
-  UserRoundCog,
-  Users,
-  UsersRound,
-} from "lucide-react"
+import { GalleryVerticalEnd } from "lucide-react"
 import { usePathname } from "next/navigation"
 import { useDebounceValue } from "usehooks-ts"
 
 import * as React from "react"
 
 import { NavMain } from "./nav-main"
+import { navMainData } from "./nav-main-data"
 import { NavUser } from "./nav-user"
 import { SearchForm } from "./search-form"
-
-export type NavItem = {
-  title: string
-  url: string
-  icon?: LucideIcon
-  isActive?: boolean
-  permission?: PermissionValues
-  items?: {
-    title: string
-    url: string
-  }[]
-}
-
-// This is sample data.
-const navMain: NavItem[] = [
-  {
-    title: "Home",
-    url: "/",
-    icon: House,
-  },
-  {
-    title: "  Users management",
-    url: "/users",
-    icon: UsersRound,
-    permission: permissions.admMenuUsers,
-  },
-  {
-    title: "Organizations",
-    url: "/orgs",
-    icon: Building2,
-    permission: permissions.admMenuOrganizations,
-  },
-  {
-    title: "Institutes",
-    url: "/institutes",
-    icon: School,
-    permission: permissions.admMenuInstitutes,
-  },
-  {
-    title: "Feedback",
-    url: "/feedback",
-    icon: MessageSquareX,
-    permission: permissions.admMenuFeedback,
-  },
-  {
-    title: "Help Center",
-    url: "/help-center",
-    icon: BadgeHelp,
-    permission: permissions.admMenuHelpCenter,
-  },
-  {
-    title: "Support",
-    url: "/support",
-    icon: BotMessageSquare,
-    permission: permissions.admMenuSupport,
-  },
-]
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const pathname = usePathname()
 
   const state = useAuthStore()
-  const userPermissions = state.user?.systemRole.rolePermissions
+  const userPermissions = state.user?.systemRole?.permissions
 
   const [search, setSearch] = useDebounceValue("", 500)
 
   // Filter navMain based on permissions
-  const filteredNavMain = navMain
+  const filteredNavMain = navMainData
     .filter(
       (item) => !item.permission || userPermissions?.includes(item.permission),
     )

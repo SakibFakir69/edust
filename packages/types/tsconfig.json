@@ -5,7 +5,7 @@
     "moduleResolution": "bundler",
     "baseUrl": ".",
     "paths": {
-      "@edust/types": ["./src/index.ts"]
+      "@edust/types": ["./src/*"]
     }
   },
   "include": ["."],

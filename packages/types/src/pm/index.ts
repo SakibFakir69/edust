@@ -1,19 +1,26 @@
-import { orgPermissions } from './org-permissions';
+export const PERMISSIONS = {
+  // ADMINISTRATOR MENUS PERMISSIONS
+  ADM_MENU_USERS: "ADM:MENU:USERS",
 
-export const permissions = {
-  ...orgPermissions,
+  // API ACCESS
+  ADM_PREFIX: "ADM:", // don't need to save in database, just for filtering
+  ADM_USERS_FULL_ACCESS: "ADM:USERS:*",
+  ADM_NEWS_FULL_ACCESS: "ADM:NEWS:*",
 
-  feedbackCreate: 'feedback:create',
-  feedbackRead: 'feedback:read',
-  feedbackUpdate: 'feedback:update',
-  feedbackDelete: 'feedback:delete',
+  // ==================================================================
 
-  helpCenterCreate: 'help_center:create',
-  helpCenterRead: 'help_center:read',
-  helpCenterUpdate: 'help_center:update',
-  helpCenterDelete: 'help_center:delete',
-} as const;
+  // ORG MENUS PERMISSION
+  ORG_MENU_ACCESS_CONTROL: "ORG:MENU:ACCESS_CONTROL",
 
-export type PermissionValues = (typeof permissions)[keyof typeof permissions];
+  // API ACCESS
+  ORG_PREFIX: "ORG:", // don't need to save in database, just for filtering
+  ORG_ME_FULL_ACCESS: "ORG:ME:*",
+  ORG_ACCESS_CONTROL_FULL_ACCESS: "ORG:ACCESS_CONTROL:*",
+  ORG_ACADEMIC_YEAR_FULL_ACCESS: "ORG:ACADEMIC_YEAR:*",
+  ORG_ACADEMIC_CLASS_FULL_ACCESS: "ORG:ACADEMIC_CLASS:*",
+  ORG_ACADEMIC_ADMISSION_FULL_ACCESS: "ORG:ACADEMIC_ADMISSION:*",
+  ORG_SETTING_FULL_ACCESS: "ORG:SETTING:*",
+  ORG_STUDENT_FULL_ACCESS: "ORG:STUDENT:*",
+} as const
 
-export type Permissions = typeof permissions;
+export type Permissions = (typeof PERMISSIONS)[keyof typeof PERMISSIONS]
