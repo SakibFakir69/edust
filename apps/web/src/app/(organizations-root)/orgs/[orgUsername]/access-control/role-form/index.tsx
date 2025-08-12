@@ -1,6 +1,5 @@
 import { accessControlHooks } from "@/hooks/react-query"
 import { useAuthStore } from "@/store"
-import { asOptionalField } from "@/utils"
 import {
   Button,
   Card,
@@ -14,6 +13,7 @@ import {
   FormMessage,
   Input,
 } from "@edust/ui"
+import { zodAsOptionalField } from "@edust/utils"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useRouter } from "next/navigation"
 import { useForm } from "react-hook-form"
@@ -30,7 +30,7 @@ const FormSchema = z.object({
     .refine((value) => /^[A-Za-z\s]*$/.test(value), {
       message: "Name must only contain English letters and spaces",
     }),
-  description: asOptionalField(
+  description: zodAsOptionalField(
     z
       .string()
       .trim()
@@ -38,8 +38,7 @@ const FormSchema = z.object({
       .refine((value) => /^[A-Za-z\s.]*$/.test(value), {
         message:
           "Description must only contain English letters, spaces, and periods",
-      })
-      .optional(),
+      }),
   ),
 })
 

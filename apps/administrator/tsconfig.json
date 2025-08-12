@@ -18,14 +18,6 @@
       "@edust/utils": ["../../packages/utils/src/index.ts"]
     }
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts",
-    "src/app/(root)/users",
-    "../../packages/utils/src/extract-axios-error-message.ts",
-    "../../packages/utils/src/convert-slug.ts"
-  ],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules"]
 }

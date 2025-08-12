@@ -2,8 +2,7 @@
 
 import { ImageUploadField, imageUploadFieldZod } from "@/components"
 import axios from "@/lib/axios"
-import { asOptionalField } from "@/utils"
-import { Gender, Roles } from "@edust/types"
+import { Gender } from "@edust/types"
 import {
   Button,
   Form,
@@ -21,6 +20,7 @@ import {
   SelectValue,
 } from "@edust/ui"
 import { DatePicker } from "@edust/ui/components/manual"
+import { zodAsOptionalField } from "@edust/utils"
 import { zodResolver } from "@hookform/resolvers/zod"
 import imageCompression from "browser-image-compression"
 import { isEqual } from "date-fns"
@@ -42,7 +42,7 @@ const FormSchema = z
       .refine((value) => /^[A-Za-z\s]*$/.test(value), {
         message: "Name must only contain English letters and spaces",
       }),
-    username: asOptionalField(
+    username: zodAsOptionalField(
       z
         .string()
         .trim()
@@ -52,19 +52,19 @@ const FormSchema = z
           message: "Username must only contain English letters and hyphens",
         }),
     ),
-    emailSecondary: asOptionalField(
+    emailSecondary: zodAsOptionalField(
       z
         .string()
         .trim()
         .min(3, { message: "required" })
         .email({ message: "Invalid email format" }),
     ),
-    gender: asOptionalField(
+    gender: zodAsOptionalField(
       z.enum([Gender.male, Gender.female, Gender.others], {
         message: "Invalid gender. Please select 'MALE', 'FEMALE', or 'OTHERS'.",
       }),
     ),
-    dateOfBirth: asOptionalField(
+    dateOfBirth: zodAsOptionalField(
       z.preprocess(
         (arg) => (typeof arg === "string" ? new Date(arg) : arg),
         z
@@ -75,16 +75,16 @@ const FormSchema = z
           ),
       ),
     ),
-    phoneNumber: asOptionalField(
+    phoneNumber: zodAsOptionalField(
       z.string().regex(/^\+?[0-9]\d{1,14}$/, "Invalid phone number format"),
     ),
-    phoneNumberSecondary: asOptionalField(
+    phoneNumberSecondary: zodAsOptionalField(
       z.string().regex(/^\+?[0-9]\d{1,14}$/, "Invalid phone number format"),
     ),
-    homeAddress: asOptionalField(
+    homeAddress: zodAsOptionalField(
       z.string().min(10, "Address must be at least 10 characters long"),
     ),
-    profilePic: asOptionalField(imageUploadFieldZod),
+    profilePic: zodAsOptionalField(imageUploadFieldZod),
   })
   .transform((data) => {
     // Remove any undefined properties from the object

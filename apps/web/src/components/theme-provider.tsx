@@ -1,7 +1,7 @@
 "use client"
 
 import { useThemeStore } from "@/store"
-import { updateThemeOnDocument } from "@/utils"
+import { updateThemeOnDocument } from "@edust/utils"
 
 import { JSX, ReactNode, useEffect } from "react"
 

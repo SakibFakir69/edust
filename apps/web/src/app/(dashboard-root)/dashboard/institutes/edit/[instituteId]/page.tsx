@@ -6,7 +6,6 @@ import {
   useGetInstitutesId,
   useGetMeInstitutesLists,
 } from "@/hooks/react-query"
-import { convertSlug } from "@/utils"
 import { Status } from "@edust/types"
 import {
   Button,
@@ -34,6 +33,7 @@ import {
 } from "@edust/ui"
 import { DatePicker } from "@edust/ui/components/manual/date-picker"
 import { cn } from "@edust/ui/utils"
+import { convertSlug } from "@edust/utils"
 import { zodResolver } from "@hookform/resolvers/zod"
 import imageCompression from "browser-image-compression"
 import { Check, ChevronsUpDown, ImageUp } from "lucide-react"

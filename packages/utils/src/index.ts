@@ -1,3 +1,5 @@
 export * from "./convert-slug"
+export * from "./detect-theme"
 export * from "./extract-axios-error-message"
+export * from "./update-theme-on-document"
 export * from "./zod-as-optional-field"

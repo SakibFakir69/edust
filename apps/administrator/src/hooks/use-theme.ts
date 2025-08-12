@@ -1,8 +1,8 @@
 "use client"
 
 import { useThemeStore } from "@/store"
-import { updateThemeOnDocument } from "@/utils"
 import { Theme } from "@edust/types"
+import { updateThemeOnDocument } from "@edust/utils"
 
 import { useCallback, useEffect } from "react"
 
