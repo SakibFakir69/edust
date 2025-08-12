@@ -1,15 +1,13 @@
 "use client"
 
 import { Theme } from "@edust/types"
-import ReactJsTipTapEditor, { useEditorState } from "reactjs-tiptap-editor"
+import ReactJsTipTapEditor from "reactjs-tiptap-editor"
 // style
 import "reactjs-tiptap-editor/style.css"
 
-import { useCallback, useRef, useState } from "react"
+import { FC, useCallback, useRef, useState } from "react"
 
 import extensions from "./extensions"
-
-const DEFAULT = `<h1 dir="auto">Rich Text Editor</h1><p dir="auto"></p>`
 
 function debounce(func: any, wait: number) {
   let timeout: NodeJS.Timeout
@@ -19,16 +17,21 @@ function debounce(func: any, wait: number) {
     timeout = setTimeout(() => func.apply(this, args), wait)
   }
 }
-export const RichTextEditor = ({
+
+type RichTextEditorProps = {
+  setContentHtml: Function
+  theme: Theme
+  defaultValue?: string
+  className?: string
+}
+
+export const RichTextEditor: FC<RichTextEditorProps> = ({
   setContentHtml,
   theme = "light",
   className = "",
-}: {
-  setContentHtml: any
-  theme: Theme
-  className?: string
+  defaultValue = `<h1 dir="auto">Rich Text Editor</h1><p dir="auto"></p>`,
 }) => {
-  const [content, setContent] = useState(DEFAULT)
+  const [content, setContent] = useState(defaultValue)
   const refEditor = useRef<any>(null)
 
   const [disable, setDisable] = useState(false)
@@ -46,7 +49,7 @@ export const RichTextEditor = ({
       <ReactJsTipTapEditor
         ref={refEditor}
         output="html"
-        content={DEFAULT}
+        content={content}
         onChangeContent={onValueChange}
         extensions={extensions()}
         dark={theme == "dark"}

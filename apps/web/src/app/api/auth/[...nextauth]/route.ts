@@ -116,7 +116,14 @@ export const authOptions: NextAuthOptions = {
             body: JSON.stringify({ refreshToken: token.refreshToken }),
           },
         )
+
         const data = await res.json()
+
+        if (!res.ok)
+          throw new Error(
+            "Refresh Error: " + data.message ||
+              "Refresh Error: Invalid credentials",
+          )
 
         token.accessToken = data.auth.accessToken
         token.expiresAt = data.auth.expiresAt

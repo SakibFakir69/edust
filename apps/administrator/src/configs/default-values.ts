@@ -1,18 +1,6 @@
 import packageInfo from "../../package.json"
 
-interface DefaultValues {
-  version: string
-  frontendURL: string
-  backendURL: string
-  apiV0URL: string
-  apiV0AdmURL: string
-  formSpreedID: string
-  contactWhatsAppLink: string
-  discordLink: string
-  mobileNumber: string
-}
-
-export const defaultValues: DefaultValues = {
+export const defaultValues = {
   version: packageInfo.version,
   frontendURL: process.env.NEXT_PUBLIC_FRONTEND_URL || "http://localhost:3000",
   backendURL: process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:4000",
@@ -23,4 +11,4 @@ export const defaultValues: DefaultValues = {
   contactWhatsAppLink: "https://api.whatsapp.com/send?phone=8801760255882",
   discordLink: "https://discord.gg/vnhqmn9mdj",
   mobileNumber: "+8801760255882",
-}
+} as const

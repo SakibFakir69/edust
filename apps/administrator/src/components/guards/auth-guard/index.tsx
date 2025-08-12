@@ -1,8 +1,8 @@
 "use client"
 
 import { Loading } from "@/components/loading"
-import { PermissionValues } from "@/lib/pm"
 import { useAuthStore } from "@/store"
+import { Permissions } from "@edust/types"
 import { Typography } from "@edust/ui"
 import { useSession } from "next-auth/react"
 
@@ -12,7 +12,7 @@ import { useGetAuthMe } from "./use-get-auth-me"
 
 export type AuthGuardProps = {
   children: React.ReactNode
-  requiredPermissions?: PermissionValues | PermissionValues[]
+  requiredPermissions?: Permissions | Permissions[]
   fallback?: React.ReactNode
 }
 
@@ -26,10 +26,7 @@ export const AuthGuard: React.FC<AuthGuardProps> = ({
 
   const { isLoading } = useGetAuthMe()
 
-  const userPermissions = useMemo(
-    () => user?.systemRole.rolePermissions,
-    [user],
-  )
+  const userPermissions = useMemo(() => user?.systemRole?.permissions, [user])
 
   const hasRequiredPermissions = useMemo(() => {
     if (!requiredPermissions) return true
